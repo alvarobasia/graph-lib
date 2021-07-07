@@ -1,7 +1,8 @@
 from utils.get_correct_values import get_correct_values
 from domain.Graph import Graph
 from infra.graph_info import Graph_info
-
+from infra.graph_search import Graph_Search
+from infra.connected_component import Connected_Component
 s = []
 with open("teste.txt", "r") as fd:
     for line in fd:
@@ -11,5 +12,5 @@ result = get_correct_values(s)
 
 graph = Graph(result['nodes'], result['edges'], result['values'])
 
-g = Graph_info(graph, False)
-print(g.get_max_degree())
+g = Connected_Component(graph, True, True)
+print(g.get_info())
