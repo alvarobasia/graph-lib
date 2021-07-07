@@ -1,17 +1,18 @@
 from typing import List
 from domain.Graph import Graph
+from utils.representation_type import Representation
 
 
 class Graph_info:
     graph: Graph
-    representation: bool
+    representation: Representation
 
-    def __init__(self, graph: Graph, representation: bool):
+    def __init__(self, graph: Graph, representation: Representation):
         self.graph = graph
         self.representation = representation
 
     def get_infos(self):
-        if self.representation:
+        if self.representation == Representation.ADJACENCY_LIST:
             return self.__get_infos_list()
         else:
             return self.__get_infos_matrix()

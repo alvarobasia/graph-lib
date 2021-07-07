@@ -1,16 +1,17 @@
 from domain.Graph import Graph
+from utils.representation_type import Representation
 
 
 class Graph_Search:
     graph: Graph
-    representation: bool
+    representation: Representation
 
-    def __init__(self, graph: Graph, representation: bool):
+    def __init__(self, graph: Graph, representation: Representation):
         self.graph = graph
         self.representation = representation
 
     def search_wide(self, el: int):
-        if self.representation:
+        if self.representation == Representation.ADJACENCY_LIST:
             return self.__search_wide_list(el)
         else:
             return self.__search_wide_matrix(el)
@@ -50,7 +51,7 @@ class Graph_Search:
         return R
 
     def search_deep(self, el: int):
-        if self.representation:
+        if self.representation == 0:
             return self.__search_deep_list(el)
         else:
             return self.__search_deep_matrix(el)
