@@ -1,4 +1,4 @@
-from typing import List
+from typing import Any, List
 from domain.Graph import Graph
 from utils.representation_type import Representation
 from utils.search_type import Search_type
@@ -19,48 +19,29 @@ class Connected_Component:
         self.search = search
 
     def get_info(self):
+        graph: Any
         if self.representation == Representation.ADJACENCY_LIST:
-            if self.search == Search_type.DEEP_SEARCH:
-                return self.__get_connected_component_list_deep()
-            else:
-                return self.__get_connected_component_list_wide()
+            graph = self.graph.get_list_representation()
         else:
-            if self.search == Search_type.DEEP_SEARCH:
-                return self.__get_connected_component_matrix_deep()
+            graph = self.graph.get_matrix_representation()
+
+        for u in range(len(graph)):
+            if self.result[u] == 0:
+                self.tag = self.tag + 1
+                self.__get_correct_search_method()(u, graph)
+        return self.result
+
+    def __get_correct_search_method(self):
+        if self.representation == Representation.ADJACENCY_LIST:
+            if self.search == Search_type.WIDE_SEARCH:
+                return self.__wide_search_list_connect
             else:
-                return self.__get_connected_component_matrix_wide()
-
-    def __get_connected_component_list_deep(self):
-        graph = self.graph.get_list_representation()
-        for u in range(len(graph)):
-            if self.result[u] == 0:
-                self.tag = self.tag + 1
-                self.__deep_search_list_connect(u, graph)
-        return self.result
-
-    def __get_connected_component_matrix_deep(self):
-        graph = self.graph.get_matrix_representation()
-        for u in range(len(graph)):
-            if self.result[u] == 0:
-                self.tag = self.tag + 1
-                self.__deep_search_matrix_connect(u, graph)
-        return self.result
-
-    def __get_connected_component_list_wide(self):
-        graph = self.graph.get_list_representation()
-        for u in range(len(graph)):
-            if self.result[u] == 0:
-                self.tag = self.tag + 1
-                self.__wide_search_list_connect(u, graph)
-        return self.result
-
-    def __get_connected_component_matrix_wide(self):
-        graph = self.graph.get_matrix_representation()
-        for u in range(len(graph)):
-            if self.result[u] == 0:
-                self.tag = self.tag + 1
-                self.__wide_search_matrix_connect(u, graph)
-        return self.result
+                return self.__deep_search_list_connect
+        else:
+            if self.search == Search_type.WIDE_SEARCH:
+                return self.__wide_search_matrix_connect
+            else:
+                return self.__deep_search_matrix_connect
 
     def __deep_search_list_connect(self, el, graph):
         self.result[el] = self.tag
