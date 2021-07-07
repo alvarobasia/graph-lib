@@ -25,10 +25,10 @@ class Connected_Component:
             else:
                 return self.__get_connected_component_list_wide()
         else:
-            if self.search:
+            if self.search == Search_type.DEEP_SEARCH:
                 return self.__get_connected_component_matrix_deep()
             else:
-                self.__get_connected_component_matrix_wide()
+                return self.__get_connected_component_matrix_wide()
 
     def __get_connected_component_list_deep(self):
         graph = self.graph.get_list_representation()
@@ -55,7 +55,12 @@ class Connected_Component:
         return self.result
 
     def __get_connected_component_matrix_wide(self):
-        pass
+        graph = self.graph.get_matrix_representation()
+        for u in range(len(graph)):
+            if self.result[u] == 0:
+                self.tag = self.tag + 1
+                self.__wide_search_matrix_connect(u, graph)
+        return self.result
 
     def __deep_search_list_connect(self, el, graph):
         self.result[el] = self.tag
@@ -78,3 +83,13 @@ class Connected_Component:
                 if self.result[v[0]] == 0:
                     Q.append(v[0])
                     self.result[v[0]] = self.tag
+
+    def __wide_search_matrix_connect(self, el, graph):
+        self.result[el] = self.tag
+        Q = [el]
+        while len(Q) != 0:
+            u = Q.pop(0)
+            for i, v in enumerate(graph[el]):
+                if v != 0 and self.result[i] == 0:
+                    Q.append(i)
+                    self.result[i] = self.tag
