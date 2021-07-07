@@ -1,5 +1,5 @@
+from typing import List
 from domain.Graph import Graph
-import numpy as np
 
 
 class Graph_info:
@@ -10,19 +10,30 @@ class Graph_info:
         self.graph = graph
         self.representation = representation
 
-    def get_max_degree(self):
-        result: int
+    def get_infos(self):
         if self.representation:
-            return self.__get_max_degree_list()
+            return self.__get_infos_list()
         else:
-            return self.__get_max_degree_matrix()
+            return self.__get_infos_matrix()
 
-    def __get_max_degree_list(self):
+    def __get_infos_list(self):
         graph = self.graph.get_list_representation()
         result = [0 for x in graph]
         for v in graph:
             for f in v:
                 result[f[0]] = result[f[0]] + 1
+        return self.__build_object(result)
+
+    def __get_infos_matrix(self):
+        graph = self.graph.get_matrix_representation()
+        result = [0 for x in graph]
+        for v in graph:
+            for f, l in enumerate(v):
+                if l != 0:
+                    result[f] = result[f] + 1
+        return self.__build_object(result)
+
+    def __build_object(self, result: List[int],):
         max_value = max(result)
         min_value = min(result)
         freq_relative = [0 for x in range(max_value + 1)]
@@ -40,12 +51,3 @@ class Graph_info:
             'avg': sum(result) / len(result),
             'freq': freq_relative
         }
-
-    def __get_max_degree_matrix(self):
-        graph = self.graph.get_matrix_representation()
-        result = [0 for x in graph]
-        for v in graph:
-            for f, l in enumerate(v):
-                if l != 0:
-                    result[f] = result[f] + 1
-        print(result)
