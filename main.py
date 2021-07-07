@@ -15,5 +15,5 @@ result = get_correct_values(s)
 graph = Graph(result['nodes'], result['edges'], result['values'])
 
 g = Connected_Component(
-    graph, Representation.ADJACENCY_MATRIX, Search_type.DEEP_SEARCH)
+    graph, Representation.ADJACENCY_LIST, Search_type.WIDE_SEARCH)
 print(g.get_info())
