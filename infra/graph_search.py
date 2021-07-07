@@ -98,6 +98,6 @@ class Graph_Search:
                     desc[i] = 1
                     break
             if pop:
-                # level = level + 1
+                level = level + 1
                 S.pop()
         return R
