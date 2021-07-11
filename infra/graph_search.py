@@ -92,7 +92,6 @@ class Graph_Search:
         while len(S) != 0:
             u = S[-1]
             pop = True
-            level = level + 1
             for i, v in enumerate(graph[u]):
                 if v != 0 and desc[i] == 0:
                     pop = False
