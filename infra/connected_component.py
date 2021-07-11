@@ -70,7 +70,7 @@ class Connected_Component:
         Q = [el]
         while len(Q) != 0:
             u = Q.pop(0)
-            for i, v in enumerate(graph[el]):
+            for i, v in enumerate(graph[u]):
                 if v != 0 and self.result[i] == 0:
                     Q.append(i)
                     self.result[i] = self.tag
