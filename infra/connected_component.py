@@ -43,17 +43,17 @@ class Connected_Component:
             else:
                 return self.__deep_search_matrix_connect
 
-    def __deep_search_list_connect(self, el, graph):
+    def __deep_search_list_connect_rec(self, el, graph):
         self.result[el] = self.tag
         for v in graph[el]:
             if self.result[v[0]] == 0:
-                self.__deep_search_list_connect(v[0], graph)
+                self.__deep_search_list_connect_rec(v[0], graph)
 
-    def __deep_search_matrix_connect(self, el, graph):
+    def __deep_search_matrix_connect_rec(self, el, graph):
         self.result[el] = self.tag
         for i, v in enumerate(graph[el]):
             if v != 0 and self.result[i] == 0:
-                self.__deep_search_matrix_connect(i, graph)
+                self.__deep_search_matrix_connect_rec(i, graph)
 
     def __wide_search_list_connect(self, el, graph):
         self.result[el] = self.tag
@@ -74,3 +74,33 @@ class Connected_Component:
                 if v != 0 and self.result[i] == 0:
                     Q.append(i)
                     self.result[i] = self.tag
+
+    def __deep_search_list_connect(self, el, graph):
+        self.result[el] = self.tag
+        Q = [el]
+        while len(Q) != 0:
+            u = Q[-1]
+            pop = True
+            for v in graph[u]:
+                if self.result[v[0]] == 0:
+                    pop = False
+                    Q.append(v[0])
+                    self.result[v[0]] = self.tag
+                    break
+            if pop:
+                Q.pop()
+
+    def __deep_search_matrix_connect(self, el, graph):
+        self.result[el] = self.tag
+        Q = [el]
+        while len(Q) != 0:
+            u = Q[-1]
+            pop = True
+            for i, v in enumerate(graph[u]):
+                if v != 0 and self.result[i] == 0:
+                    pop = False
+                    Q.append(i)
+                    self.result[i] = self.tag
+                    break
+            if pop:
+                Q.pop()
