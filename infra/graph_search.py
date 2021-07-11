@@ -1,3 +1,4 @@
+from typing import final
 from domain.Graph import Graph
 from utils.representation_type import Representation
 
@@ -19,34 +20,36 @@ class Graph_Search:
     def __search_wide_list(self, el: int):
         graph = self.graph.get_list_representation()
         desc = [0 for i in range(len(graph))]
-        level = 0
         Q = [el]
-        R = [[level, el]]
+        L = [0 for i in range(len(graph))]
+        R = [[el, 0]]
         desc[el] = 1
         while len(Q) != 0:
-            level = level + 1
             u = Q.pop(0)
             for v in graph[u]:
                 if desc[v[0]] == 0:
                     Q.append(v[0])
-                    R.append([level, v[0]])
+                    level = L[u] + 1
+                    L[v[0]] = level
+                    R.append([v[0], level])
                     desc[v[0]] = 1
         return R
 
     def __search_wide_matrix(self, el: int):
         graph = self.graph.get_matrix_representation()
         desc = [0 for i in range(len(graph))]
-        level = 0
         Q = [el]
-        R = [[level, el]]
+        R = [[el, 0]]
+        L = [0 for i in range(len(graph))]
         desc[el] = 1
         while len(Q) != 0:
-            level = level + 1
             u = Q.pop(0)
             for i, v in enumerate(graph[u]):
                 if v != 0 and desc[i] == 0:
+                    level = L[u] + 1
+                    L[i] = level
                     Q.append(i)
-                    R.append([level, i])
+                    R.append([i, level])
                     desc[i] = 1
         return R
 
@@ -60,10 +63,9 @@ class Graph_Search:
         graph = self.graph.get_list_representation()
         desc = [0 for i in range(len(graph))]
         S = [el]
-        level = 0
-        R = [[level, el]]
+        L = [0 for i in range(len(graph))]
+        R = [[el, 0]]
         desc[el] = 1
-        level = level + 1
         while len(S) != 0:
             u = S[-1]
             pop = True
@@ -71,11 +73,12 @@ class Graph_Search:
                 if desc[v[0]] == 0:
                     pop = False
                     S.append(v[0])
-                    R.append([level, v[0]])
+                    level = L[u] + 1
+                    L[v[0]] = level
+                    R.append([v[0], level])
                     desc[v[0]] = 1
                     break
             if pop:
-                level = level + 1
                 S.pop()
         return R
 
@@ -83,21 +86,23 @@ class Graph_Search:
         graph = self.graph.get_matrix_representation()
         desc = [0 for i in range(len(graph))]
         S = [el]
-        level = 0
-        R = [[level, el]]
+        L = [0 for i in range(len(graph))]
+        R = [[el, 0]]
         desc[el] = 1
-        level = level + 1
         while len(S) != 0:
             u = S[-1]
             pop = True
+            level = level + 1
             for i, v in enumerate(graph[u]):
                 if v != 0 and desc[i] == 0:
                     pop = False
                     S.append(i)
-                    R.append([level, i])
+                    level = L[u] + 1
+                    L[i] = level
+                    R.append([i, level])
                     desc[i] = 1
                     break
             if pop:
-                level = level + 1
+                level = level - 1
                 S.pop()
         return R
