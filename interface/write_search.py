@@ -3,4 +3,4 @@ def write_search(name: str, info):
     with open(name, "x") as fd:
         fd.write("#vertice:nível\n")
         for v in info:
-            fd.write(f'{v[1]}:{v[0]}\n')
+            fd.write(f'{v[0]}:{v[1]}\n')

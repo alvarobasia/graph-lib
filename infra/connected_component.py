@@ -14,7 +14,7 @@ class Connected_Component:
     def __init__(self, graph: Graph, representation: Representation, search: Search_type):
         self.tag = 0
         self.graph = graph
-        self.result = [0 for i in range(graph.nodes_number + 1)]
+        self.result = [0 for _ in range(graph.nodes_number)]
         self.representation = representation
         self.search = search
 

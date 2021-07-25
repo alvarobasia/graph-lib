@@ -19,15 +19,16 @@ class Graph_info:
 
     def __get_infos_list(self):
         graph = self.graph.get_list_representation()
-        result = [0 for x in graph]
+        result = [0 for _ in range(self.graph.nodes_number)]
         for v in graph:
             for f in v:
                 result[f[0]] = result[f[0]] + 1
+
         return self.__build_object(result)
 
     def __get_infos_matrix(self):
         graph = self.graph.get_matrix_representation()
-        result = [0 for x in graph]
+        result = [0 for _ in range(self.graph.nodes_number)]
         for v in graph:
             for f, l in enumerate(v):
                 if l != 0:
@@ -49,6 +50,6 @@ class Graph_info:
             'n': min_value,
             'v': result.index(min_value)
         },
-            'avg': sum(result) / len(result),
+            'avg': round(sum(result) / len(result), 10),
             'freq': freq_relative
         }
