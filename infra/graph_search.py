@@ -26,13 +26,11 @@ class Graph_Search:
         desc[el] = 1
         while len(Q) != 0:
             u = Q.pop(0)
-            print(f'-----{u}-------')
             for v in graph[u]:
                 if desc[v[0]] == 0:
                     Q.append(v[0])
                     level = L[u] + 1
                     L[v[0]] = level
-                    print(f'Achou =>> {v[0]} No nível ==> {level}')
                     R.append([v[0], level])
                     desc[v[0]] = 1
         return R
@@ -46,13 +44,11 @@ class Graph_Search:
         desc[el] = 1
         while len(Q) != 0:
             u = Q.pop(0)
-            print(f'-----{u}-------')
             for i, v in enumerate(graph[u]):
                 if v != 0 and desc[i] == 0:
                     level = L[u] + 1
                     L[i] = level
                     Q.append(i)
-                    print(f'Achou =>> {i} No nível ==> {level}')
                     R.append([i, level])
                     desc[i] = 1
         return R
@@ -80,12 +76,10 @@ class Graph_Search:
                     level = L[u] + 1
                     L[v[0]] = level
                     R.append([v[0], level])
-                    print(f'Achou =>> {v[0]} No nível ==> {level}')
                     desc[v[0]] = 1
                     break
             if pop:
                 p = S.pop()
-                print(f'Desempilhou =>> {p}')
 
         return R
 
@@ -106,11 +100,9 @@ class Graph_Search:
                     level = L[u] + 1
                     L[i] = level
                     R.append([i, level])
-                    print(f'Achou =>> {i} No nível ==> {level}')
                     desc[i] = 1
                     break
             if pop:
                 p = S.pop()
-                print(f'Desempilhou =>> {p}')
 
         return R
