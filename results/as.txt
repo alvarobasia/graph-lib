@@ -1,0 +1,4 @@
+Componentes conexas: 1
+Maior componente: 32385
+Menor componente: 32385
+=> 32385 vértices
