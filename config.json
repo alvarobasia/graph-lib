@@ -1,0 +1,15 @@
+{
+    "file": "as_graph.txt",
+    "representation": "list",
+    "search_type": "wide",
+    "infos" : {
+        "output": "testse.txt"   
+    },
+    "search": {
+        "init": 0,
+    "output": "tesste.txt" 
+    },
+    "connect": {
+        "output": "teste.txt" 
+    }
+}
