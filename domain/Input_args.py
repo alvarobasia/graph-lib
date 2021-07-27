@@ -21,6 +21,7 @@ class Input_args:
     connect: str
     file: str
     graph: Graph
+    sparse: bool
 
     def __init__(self, file) -> None:
         self.data = json.load(file)
@@ -30,13 +31,17 @@ class Input_args:
         self.infos = ''
         self.connect = ''
         self.graph = None
+        self.sparse = True
         if 'file' in self.data:
             self.file = self.data['file']
         else:
             raise Exception(
                 'Informe o nome do arquivo contendo o grafo.')
-        if 'representation' in self.data and self.data['representation'] == 'matrix':
+        if 'representation' in self.data and self.data['representation'] == 'matriz':
             self.representation = Representation.ADJACENCY_MATRIX
+
+        if 'sparse' in self.data and self.data['sparse'] == False:
+            self.sparse = False
 
         if 'search_type' in self.data and self.data['search_type'] == 'deep':
             self.search_type = Search_type.DEEP_SEARCH
@@ -60,7 +65,8 @@ class Input_args:
 
     def exec(self):
         result = read_file(self.file)
-        self.graph = Graph(result['nodes'], result['edges'], result['values'])
+        self.graph = Graph(
+            result['nodes'], result['edges'], result['values'], self.sparse)
         if self.initial[0] != -1:
             self.__search_in_graph(self.initial[1])
         if self.connect != '':

@@ -1,6 +1,7 @@
 {
     "file": "as_graph.txt",
-    "representation": "list",
+    "representation": "matriz",
+    "sparse": false,
     "search_type": "wide",
     "infos" : {
         "output": "testse.txt"   
