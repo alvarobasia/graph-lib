@@ -77,7 +77,7 @@ class Input_args:
     def __generate_infos(self, file_name):
         info = Graph_info(self.graph, self.representation).get_infos()
         print(
-            f"====> SALVADO NO ARQUIVO {file_name} AS INFORMAÇÕES SOBRE O GRAFO<====")
+            f"====> SALVANDO NO ARQUIVO {file_name} AS INFORMAÇÕES SOBRE O GRAFO<====")
         print_graph_info(file_name, info)
 
     def __search_in_graph(self, file_name):
@@ -88,12 +88,12 @@ class Input_args:
             s = Graph_Search(self.graph, self.representation).search_wide(
                 self.initial[0])
         print(
-            f"====> SALVADO NO ARQUIVO {file_name} O RESULTADO DA BUSCA <====")
+            f"====> SALVANDO NO ARQUIVO {file_name} O RESULTADO DA BUSCA <====")
         write_search(file_name, s)
 
     def __connect_components(self, file_name):
         c = Connected_Component(
             self.graph, self.representation, self.search_type).get_info()
         print(
-            f"====> SALVADO NO ARQUIVO {file_name} OS COMPONENTES CONEXOS<====")
+            f"====> SALVANDO NO ARQUIVO {file_name} OS COMPONENTES CONEXOS<====")
         print_connect_info(file_name, c)
